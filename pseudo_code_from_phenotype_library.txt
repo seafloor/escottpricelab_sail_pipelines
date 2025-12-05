@@ -1,0 +1,128 @@
+# Diabetes, PH152
+
+Use MODIFIED CALIBER 'Diabetes' phenotyping algorithm for 
+
+T1DM,
+
+T2DM,
+
+'Diabetes' other or uncertain type:
+
+IF there is at least one record for code for type 2 'Diabetes' (diabdiag_gprd = 4)
+
+and no record for type 1 'Diabetes' (no record with diabdiag_gprd = 3)
+
+
+then classify the patient as type 2 'Diabetes'
+ELSE if there is at least one record for code for type I 'Diabetes' (diabdiag_gprd = 3)
+
+and no record for type 2 'Diabetes' (no record with diabdiag_gprd = 4)
+
+
+then classify the patient as type 1 'Diabetes'
+ELSE if there is at least one record of type 1 'Diabetes' (diabdiag_gprd = 3)
+
+and type 2 'Diabetes' (diabdiag_gprd = 4)
+
+
+then classify as 'Diabetes' other or uncertain type
+ELSE if there are no diabdiag_gprd records for this patient:
+
+If there is at least one record for Non-insulin-dependent 'Diabetes' mellitus (NIDDM) (dm_gprd = 4 or dm_hes = 4)
+
+
+    and no record for IDDM (no record with dm_gprd = 3 or dm_hes = 3)
+
+
+
+    then classify the patient as type 2 'Diabetes'
+
+
+
+ELSE if there is at least one record for Insulin-dependent 'Diabetes' mellitus (IDDM) (dm_gprd = 3 or dm_hes = 3)
+
+
+    and no record for NIDDM (no record with dm_gprd = 4 or dm_hes = 4)
+
+
+    then classify the patient as type 1 'Diabetes'
+
+
+
+ELSE if there is at least one record of 'Diabetes' (dm_gprd or dm_hes category 3, 4, 5 or 6)
+
+
+    then classify as 'Diabetes' other or uncertain type
+ELSE classify as no 'Diabetes'
+
+# Hypertension, PH189
+Use MODIFIED CALIBER 'Hypertension' phenotyping algorithm:
+
+At the specified date, a patient is defined as having had 'Hypertension' IF they meet the criteria for any of the following on or before the specified date. The earliest date on which the individual meets any of the following criteria on or before the specified date is defined as the first event date:
+
+1) Diagnosis and history of 'Hypertension' (primary or secondary) during a consultation in primary care: ht_gprd = 1 OR 3 OR 4 OR 2) Diagnosis of 'Hypertension' (primary or secondary) during a hospitalisation: ht_hes = 3 OR 4
+
+# Obesity, PH221
+At the specified date, a patient is defined as having had 'Obesity' IF they meet the criteria for any of the following on or before the specified date. The earliest date on which the individual meets any of the following criteria on or before the specified date is defined as the first event date:
+
+Primary care
+
+'Obesity' diagnosis or history of diagnosis or procedure during a consultation
+OR
+
+IF enttype = 13 (Weight) available on or before specified date AND data3 not missing, BMI = data3. If BMI > 30, patient is defined as having had 'Obesity'. OR
+
+If enttype = 13 (Weight) available on or before specified date AND data3 missing, BMI = data1 (enttype 13) /(data2 ^2) (enttype 14 = Height). If BMI > 30, patient is defined as having had 'Obesity'. IF height not available on same eventdate as weight, use most recent height for age > 18 years. OR Secondary care (ICD10)
+
+ALL diagnoses of 'Obesity' or history of diagnosis during a hospitalization
+
+# CHD
+
+
+Use MODIFIED CALIBER 'Coronary heart disease not otherwise specified' phenotyping algorithm
+
+At the specified date, a patient is considered to have had 'Coronary heart disease not otherwise specified' IF they meet any of the criteria below on or before the specified date.
+
+The earliest date on which the individual meets any of the following criteria on or before the specified date is defined as the first event date.
+
+No previous records meeting the criteria for stable angina OR unstable angina OR myocardial infarction
+AND {
+
+Primary care: chd_nos_gprd: category 1, 3
+
+a) IF Read code in chd_nos_gprd list, THEN chd_nos_gprd= appropriate category
+
+b) OR IF enttype = 16, chd_nos_gprd = 1 OR
+
+Secondary care: chd_nos_hes: category 3 }
+
+# atrial fibrilation
+
+Use MODIFIED CALIBER 'Atrial fibrillation' phenotyping algorithm:
+
+At the specified date, a patient is considered to have had 'Atrial fibrillation' or flutter IF they meet any of the criteria below on or before the specified date.
+
+The earliest date on which the individual meets any of the following criteria on or before the specified date is defined as the first event date:
+
+Historical & Diagnosed: first recorded AF code indicates monitoring of an existing condition, or reference to a previous AF diagnosis, or a diagnosis code for AF; preference given to the earliest dated record rather than diagnosis source (i.e. no preference for primary versus secondary care).
+
+af_gprd: category 1, 2, 3, 4, 5, 6, 7
+
+af_hes: category 6
+# Myocardial infarction
+
+Use MODIFIED CALIBER 'Myocardial infarction' phenotyping algorithm:
+
+At the specified date, a patient is considered to have had a 'Myocardial infarction' IF they meet any of the criteria below on or before the specified date.
+
+The earliest date on which the individual meets any of the following criteria on or before the specified date is defined as the first event date.
+
+Primary care diagnosis of MI: myo_infarct_gprd: category 1, category 2, category 3, category 4, category 5, category 6, category 7
+
+Secondary care diagnosis of MI: myo_infarct_hes: category 1, category 5, category 6, category 7
+
+Secondary care procedure code for coronary thrombolysis: lysis_opcs category 2
+
+
+
+

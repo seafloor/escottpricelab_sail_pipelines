@@ -1,0 +1,13 @@
+[project]
+name = "escottpricelab-sail-pipelines"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas>=2.3.3",
+    "pyconceptlibraryclient",
+]
+
+[tool.uv.sources]
+pyconceptlibraryclient = { git = "https://github.com/SwanseaUniversityMedical/pyconceptlibraryclient.git", rev = "v1.0.0" }
